@@ -12,24 +12,22 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Fix for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Path to your logo file (adjust if needed)
-const logoPath = path.join(__dirname, "assets", "m_crystal_logo.png");
+// Go one level up from controllers/ to backend/, then into assets/
+const logoPath = path.join(__dirname, "..", "assets", "m_crystal_logo_cbglsu.png");
 
-// Read the image and convert to base64
-let logoDataUrl = "";
+let logoDataUrl = "https://res.cloudinary.com/dbanrkx7w/image/upload/v1767120544/m_crystal_logo_cbglsu.png"; // fallback
 
 try {
   if (fs.existsSync(logoPath)) {
     const logoBuffer = fs.readFileSync(logoPath);
     const logoBase64 = logoBuffer.toString("base64");
     logoDataUrl = `data:image/png;base64,${logoBase64}`;
+    console.log("Logo loaded successfully from local file");
   } else {
-    console.warn("Logo file not found at:", logoPath);
-    // Fallback to your Cloudinary URL
+    console.warn("Local logo file not found, using Cloudinary fallback");
     logoDataUrl = "https://res.cloudinary.com/dbanrkx7w/image/upload/v1767120544/m_crystal_logo_cbglsu.png";
   }
 } catch (err) {
