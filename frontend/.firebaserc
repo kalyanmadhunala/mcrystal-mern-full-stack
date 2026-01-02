@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "m-crystal-a8960"
-  }
+    "default": "mcrystalz"
+  },
+  "targets": {},
+  "etags": {}
 }

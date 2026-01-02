@@ -92,10 +92,13 @@ const ShopContextProvider = (props) => {
       } else {
         setLogin(false);
         setUserData(null);
+        toast.error(data.msg)
       }
     } catch (error) {
       setLogin(false);
       setUserData(null);
+      console.log(error)
+      toast.error(error.message)
     } finally {
       setAuthLoading(false);
     }
