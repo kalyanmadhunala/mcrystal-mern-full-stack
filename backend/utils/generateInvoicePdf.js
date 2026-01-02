@@ -1,24 +1,12 @@
-import puppeteer from "puppeteer";
+import { chromium } from "playwright";
 
 export const generateInvoicePdf = async (html, invoiceNo) => {
-  const executablePath = puppeteer.executablePath();
-
-  if (!executablePath) {
-    throw new Error("Puppeteer executable path not found");
-  }
-
-  const browser = await puppeteer.launch({
-    headless: "new",
-    executablePath,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-    ],
+  const browser = await chromium.launch({
+    headless: true,
   });
 
   const page = await browser.newPage();
-  await page.setContent(html, { waitUntil: "networkidle0" });
+  await page.setContent(html, { waitUntil: "networkidle" });
 
   const pdfBuffer = await page.pdf({
     format: "A4",
