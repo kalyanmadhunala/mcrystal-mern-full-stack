@@ -97,15 +97,27 @@ const Home = () => {
       {splashVisible && (
         <div
           className={`
-            fixed inset-0 z-50 bg-white flex items-center justify-center
-            transition-opacity duration-800 ease-out
-            ${fadeOut ? "opacity-0" : "opacity-100"}
-          `}
+      fixed inset-0 z-50 bg-white flex items-center justify-center
+      transition-opacity duration-800 ease-out
+      ${fadeOut ? "opacity-0" : "opacity-100"}
+    `}
         >
-          <video autoplay muted playsinline>
+          <video
+            autoPlay
+            muted
+            playsInline
+            loop
+            className="max-w-full max-h-full object-contain" // optional: better scaling
+          >
             <source
-              src="https://res.cloudinary.com/dbanrkx7w/image/upload/f_mp4/v1767339690/mcrystalanima_w_bg.gif"
+              src="https://res.cloudinary.com/dbanrkx7w/image/upload/f_mp4,fl_loop/v1767339690/mcrystalanima_w_bg.gif"
               type="video/mp4"
+            />
+            {/* Fallback: the original optimized GIF */}
+            <img
+              src="https://res.cloudinary.com/dbanrkx7w/image/upload/q_auto,f_auto/v1767339690/mcrystalanima_w_bg.gif"
+              alt="Loading animation"
+              className="max-w-full max-h-full object-contain"
             />
           </video>
         </div>
