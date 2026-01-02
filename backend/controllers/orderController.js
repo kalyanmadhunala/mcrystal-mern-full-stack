@@ -8,12 +8,38 @@ import { generateInvoicePdf } from "../utils/generateInvoicePdf.js";
 import { uploadInvoice } from "../utils/uploadInvoice.js";
 import { v4 as uuidv4 } from "uuid";
 import { amountInWords } from "../utils/amountToWords.js";
-import { assets } from "../assets/assets.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Path to your logo file (adjust if needed)
+const logoPath = path.join(__dirname, "assets", "m_crystal_logo.png");
+
+// Read the image and convert to base64
+let logoDataUrl = "";
+
+try {
+  if (fs.existsSync(logoPath)) {
+    const logoBuffer = fs.readFileSync(logoPath);
+    const logoBase64 = logoBuffer.toString("base64");
+    logoDataUrl = `data:image/png;base64,${logoBase64}`;
+  } else {
+    console.warn("Logo file not found at:", logoPath);
+    // Fallback to your Cloudinary URL
+    logoDataUrl = "https://res.cloudinary.com/dbanrkx7w/image/upload/v1767120544/m_crystal_logo_cbglsu.png";
+  }
+} catch (err) {
+  console.error("Error reading logo file:", err);
+  logoDataUrl = "https://res.cloudinary.com/dbanrkx7w/image/upload/v1767120544/m_crystal_logo_cbglsu.png";
+}
 
 //global variable
 const currency = "inr";
 const delivery_charges = 100.00;
-const logoUrl = assets.m_crystal_logo
 //gateway initialize
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -54,7 +80,7 @@ const placeOrderCOD = async (req, res) => {
 
     //Generate Invoice HTML
     const html = invoiceTemplate({
-      logoUrl: logoUrl,
+      logoUrl: logoDataUrl,
       order: newOrder,
       invoiceNo,
       invoiceDate: new Date().toLocaleDateString(),
@@ -190,7 +216,7 @@ const verifyStripePayment = async (req, res) => {
 
       //Generate Invoice HTML
       const html = invoiceTemplate({
-        logoUrl: logoUrl,
+        logoUrl: logoDataUrl,
         order: orderData,
         invoiceNo,
         invoiceDate: new Date().toLocaleDateString(),
@@ -311,7 +337,7 @@ const verifyRazorpayPayment = async (req, res) => {
 
       //Generate Invoice HTML
       const html = invoiceTemplate({
-        logoUrl: logoUrl,
+        logoUrl: logoDataUrl,
         order: orderData,
         invoiceNo,
         invoiceDate: new Date().toLocaleDateString(),
