@@ -83,7 +83,11 @@ const Product = () => {
     fetchProductData();
   }, [productId, products]);
 
-  return productData ? (
+  if (!productData) {
+    return <ProductSkeleton />;
+  }
+
+  return (
     <div className="mt-16 px-4 sm:px-[3vw] md:px-[5vw] lg:px-[7vw]">
       <div className="border-t border-gray-200 pt-10 transition-opacity ease-in duration-500 opacity-100">
         {/* ----------------------- Product Data ---------------------------- */}
@@ -279,18 +283,7 @@ const Product = () => {
         />
       </div>
     </div>
-  ) : (
-    <div>
-      <ProductSkeleton />
-
-      <RelatedProducts
-        id={productData._id}
-        material={productData.material}
-        category={productData.category}
-        subcategory={productData.subcategory}
-      />
-    </div>
-  );
+  )
 };
 
 export default Product;

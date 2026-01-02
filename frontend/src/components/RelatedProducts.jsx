@@ -27,11 +27,7 @@ const RelatedProducts = ({ id, material, category, subcategory }) => {
   }, [products, id, material, category, subcategory]);
 
   if (loading) {
-    return (
-      <div className="mt-16 px-4 sm:px-[3vw] md:px-[5vw] lg:px-[7vw]">
-        <RelatedProductsSkeleton />;
-      </div>
-    );
+    return <RelatedProductsSkeleton />;
   }
 
   if (!related.length) {
