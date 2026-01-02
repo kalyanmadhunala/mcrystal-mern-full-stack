@@ -87,58 +87,85 @@ const ceramicCategories = [
 ];
 
 const CategoryCard = ({ to, title, img, sub }) => {
-  const imageUrl = cloudinaryUrl({
+  const bgImage = cloudinaryUrl({
     publicId: img,
     width: 600,
-    height: 400,
+    height: 500,
   });
-
   return (
     <Link
       to={to}
       aria-label={title}
-      className="group block rounded-2xl overflow-hidden"
+      className="group relative block rounded-2xl overflow-hidden"
     >
-      {/* Aspect-ratio wrapper (locks layout) */}
-      <div className="relative w-full aspect-[3/2] overflow-hidden">
-        {/* Optimized image (NO half loading) */}
-        <img
-          src={imageUrl}
-          alt={title}
-          loading="lazy"
-          width="600"
-          height="400"
-          className="
-            absolute inset-0 w-full h-full object-cover
-            transition-transform duration-700
-            group-hover:scale-110
-          "
-        />
+      <img
+        src={bgImage}
+        alt={title}
+        loading="lazy"
+        width="600"
+        height="500"
+        className="
+    absolute inset-0 w-full h-full object-cover
+    transition-all duration-700
+    group-hover:scale-110 lg:group-hover:blur-xs
+  "
+      />
 
-        {/* Overlay content */}
-        <div className="absolute inset-0 z-10 flex items-end p-4">
+      {/* Neumorphic Surface */}
+      <div
+        className="
+      relative h-48 sm:h-56 md:h-64 lg:h-56 xl:h-64 w-full
+      
+      rounded-2xl
+      z-10
+      transition-transform duration-500
+      group-hover:scale-[1.02]
+    "
+      >
+        {/* Floating Title */}
+        <div
+          className="absolute left-4 right-4 bottom-4 flex items-center justify-between z-20"
+          aria-hidden
+        >
           <div
             className="
-              p-3 rounded-2xl backdrop-blur-xs
-              transition-all duration-300
-            "
+          transform xl:translate-y-3 xl:opacity-0 p-3
+          xl:group-hover:translate-y-0 xl:group-hover:opacity-100 sm:w-full rounded-2xl
+          transition-all duration-400 ease-out backdrop-blur-xs xl:backdrop-blur-none
+        "
           >
-            <h3 className="text-white text-sm sm:text-base md:text-lg font-semibold drop-shadow-lg">
+            <h3
+              className="
+            text-white text-sm sm:text-base md:text-lg font-semibold 
+            drop-shadow-[0_3px_8px_rgba(0,0,0,0.7)]
+            transition-all duration-300
+            lg:group-hover:scale-[1.05] lg:group-hover:brightness-110
+          "
+            >
               {title}
             </h3>
-            <p className="text-xs text-white/90 mt-1 hidden sm:block drop-shadow-lg">
+
+            <p
+              className="
+            text-xs text-white/90 mt-1 hidden sm:block
+            drop-shadow-[0_3px_8px_rgba(0,0,0,0.7)]
+            transition-all duration-300
+            group-hover:scale-[1.05]
+            group-hover:brightness-125
+          "
+            >
               {sub}
             </p>
           </div>
 
-          {/* Chevron */}
+          {/* Chevron icon */}
           <span
             className="
-              ml-auto p-2 rounded-full bg-white/10 backdrop-blur-md 
-              text-white opacity-0 translate-y-2
-              group-hover:opacity-100 group-hover:translate-y-0
-              transition-all duration-300
-            "
+          ml-auto p-2 rounded-full bg-white/10 backdrop-blur-md 
+          text-white opacity-0 translate-y-2 hover:bg-white hover:text-black
+          group-hover:opacity-100 group-hover:translate-y-0
+          transition-all duration-300
+        "
             aria-hidden
           >
             <svg

@@ -9,68 +9,87 @@ import toast from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 
 const Login = () => {
-
-  axios.defaults.withCredentials = true
-  const { bannerState, loggedin, setLogin, lastPath, navigate , getUserData, userData, setCartData, getUserCart} = useContext(ShopContext);
+  axios.defaults.withCredentials = true;
+  const {
+    bannerState,
+    loggedin,
+    setLogin,
+    lastPath,
+    navigate,
+    getUserData,
+    userData,
+    setCartData,
+    getUserCart,
+  } = useContext(ShopContext);
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
 
   useEffect(() => {
     document.title = "Login | M Crystal";
   }, []);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
-      const response = await axios.post(backendUrl + "/user/login", {email, password})
+      const response = await axios.post(backendUrl + "/user/login", {
+        email,
+        password,
+      });
       if (response.data.success) {
-        setLoading(false)
-        setLogin(true)
-        await getUserData()
-        await setCartData()
-        await getUserCart()
-        navigate(lastPath)
-      } else{
-        setLoading(false)
-        toast.error(response.data.msg)
+        setLoading(false);
+        setLogin(true);
+        await getUserData();
+        await setCartData();
+        await getUserCart();
+        navigate(lastPath);
+      } else {
+        setLoading(false);
+        toast.error(response.data.msg);
       }
     } catch (error) {
-      setLoading(false)
-      console.log(error)
-      toast.error(error.message)
+      setLoading(false);
+      console.log(error);
+      toast.error(error.message);
     }
   };
 
   const handleForgot = () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      setLoading(false)
-      navigate('/forgot-password')
+      setLoading(false);
+      navigate("/forgot-password");
     } catch (error) {
-      setLoading(false)
-      console.log(error)
-      toast.error(error.message)
+      setLoading(false);
+      console.log(error);
+      toast.error(error.message);
     }
-    
   };
 
   return (
     <div className="min-h-screen relative bg-white">
       {/* Background images */}
       {/* Mobile / small screens */}
-      <div
-        className="absolute inset-0 block lg:hidden bg-center bg-cover bg-no-repeat"
-        style={{ backgroundImage: `url(${bannerState.sm})` }}
+      <img
+        src={bannerState.sm}
+        alt="Login background mobile"
+        className="absolute inset-0 block lg:hidden w-full h-full object-cover"
+        width="1080"
+        height="1920"
+        loading="eager"
       />
+
       {/* Large screens */}
-      <div
-        className="absolute inset-0 hidden lg:block bg-center bg-cover bg-no-repeat"
-        style={{ backgroundImage: `url(${bannerState.lg})` }}
+      <img
+        src={bannerState.lg}
+        alt="Login background desktop"
+        className="absolute inset-0 hidden lg:block w-full h-full object-cover"
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchpriority="high"
       />
 
       {/* Page content */}
@@ -137,22 +156,22 @@ const Login = () => {
               </div>
 
               <button
-                    className="mt-2 w-full flex flex-row items-center justify-center cursor-pointer py-2 px-4 rounded-md text-white bg-primary"
-                    onClick={handleSubmit}
-                  >
-                    {loading ? (
-                      <ThreeDots
-                        visible={true}
-                        height="24"
-                        width="50"
-                        color="#ffffff"
-                        radius="9"
-                        ariaLabel="three-dots-loading"
-                      />
-                    ) : (
-                      "Login"
-                    )}
-                  </button>
+                className="mt-2 w-full flex flex-row items-center justify-center cursor-pointer py-2 px-4 rounded-md text-white bg-primary"
+                onClick={handleSubmit}
+              >
+                {loading ? (
+                  <ThreeDots
+                    visible={true}
+                    height="24"
+                    width="50"
+                    color="#ffffff"
+                    radius="9"
+                    ariaLabel="three-dots-loading"
+                  />
+                ) : (
+                  "Login"
+                )}
+              </button>
 
               <button
                 type="button"
@@ -184,7 +203,6 @@ const Login = () => {
         </div>
       </div>
       <ResponsiveFabPortal />
-
     </div>
   );
 };

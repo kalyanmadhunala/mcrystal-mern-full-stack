@@ -14,13 +14,13 @@ const getTimeOfDay = () => {
 
   if (hour >= 5 && hour < 16) {
     // morning
-    return { lg: assets.bg_morning_lg, sm: assets.bg_morning_sm };
+    return { lg: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_morning_lg", sm: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_morning_sm" };
   } else if (hour >= 16 && hour < 20) {
     // evening
-    return { lg: assets.bg_evening_lg, sm: assets.bg_evening_sm };
+    return { lg: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_evening_lg", sm: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_evening_sm" };
   } else {
     // night
-    return { lg: assets.bg_night_lg, sm: assets.bg_night_sm };
+    return { lg: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_night_lg", sm: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_night_sm" };
   }
 };
 

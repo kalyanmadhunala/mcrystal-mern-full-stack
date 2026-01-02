@@ -8,9 +8,7 @@ import { ShopContext } from "../context/ShopContext";
 const Hero = () => {
   const { navigate } = useContext(ShopContext);
 
-
   const [isScrolled, setIsScrolled] = useState(false);
-
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -30,16 +28,29 @@ const Hero = () => {
   return (
     <section className="grid w-full h-screen">
       {/* Background Image (Desktop) */}
-      <div
-        className={`hidden lg:block absolute inset-0 bg-center bg-cover transition-all ${isScrolled ? "rounded-b-4xl" : ""}`}
-        style={{ backgroundImage: `url(${assets.desktopheroimg})` }}
-      ></div>
+      <img
+        src="https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/desktopheroimg"
+        alt="Hero background"
+        className={`hidden lg:block absolute inset-0 w-full h-full object-cover transition-all ${
+          isScrolled ? "rounded-b-4xl" : ""
+        }`}
+        width="1920"
+        height="1080"
+        loading="eager"
+      />
 
       {/* Background Image (Mobile) */}
-      <div
-        className={`block lg:hidden absolute inset-0 bg-cover bg-center transition-all ${isScrolled ? "rounded-b-4xl" : ""} `}
-        style={{ backgroundImage: `url(${assets.mobileheroimg})` }}
-      ></div>
+      <img
+        src="https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/mobileheroimg"
+        alt="Hero background mobile"
+        className={`block lg:hidden absolute inset-0 w-full h-full object-cover transition-all ${
+          isScrolled ? "rounded-b-4xl" : ""
+        }`}
+        width="1080"
+        height="1920"
+        loading="eager"
+      />
+
       <div
         className="relative z-10 flex h-full px-6 sm:px-10 ml-5 lg:ml-15
                       items-start lg:items-center"
