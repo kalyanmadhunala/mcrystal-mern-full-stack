@@ -28,16 +28,11 @@ const MarbleCollection = () => {
       </div>
       {/*Rendering products */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-4">
-        {exculsiveProducts.map((item, index) => (
-          <ProductItem
-            key={index}
-            id={item._id}
-            images={item.images}
-            name={item.name}
-            sellprice={item.sellprice}
-            price={item.price}
-            quantity={item.quantity}
-          />
+        {(exculsiveProducts.length
+          ? exculsiveProducts
+          : Array(5).fill(null)
+        ).map((item, index) => (
+          <ProductItem key={index} loading={!item} {...item} />
         ))}
 
       </div>

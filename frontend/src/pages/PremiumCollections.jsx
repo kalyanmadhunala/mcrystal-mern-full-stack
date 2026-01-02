@@ -19,6 +19,7 @@ const PremiumCollections = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [sortType, setSortType] = useState("relevent");
   const [isOutofstock, setIsOutofStock] = useState(false);
+  const [uiLoading, setUiLoading] = useState(true);
 
   // price slider / input state
   const [priceMinLimit, setPriceMinLimit] = useState(0);
@@ -54,6 +55,7 @@ const PremiumCollections = () => {
   const getBaseProducts = useCallback(() => {
     if (!premiumCollection || premiumCollection.length === 0) return [];
     if (!material) return premiumCollection;
+    setUiLoading(false)
     return premiumCollection.filter((item) => item.material === material);
   }, [premiumCollection, material]);
 
@@ -421,12 +423,17 @@ const PremiumCollections = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
-            {filteredProducts && filteredProducts.length > 0 ? (
+            {uiLoading ? (
+              
+              Array.from({ length: 8 }).map((_, index) => (
+                <ProductItem key={index} loading />
+              ))
+            ) : filteredProducts.length > 0 ? (
               filteredProducts.map((item, index) => (
                 <ProductItem
                   key={item._id ?? index}
-                  id={item._id}
                   name={item.name}
+                  id={item._id}
                   sellprice={item.sellprice}
                   price={item.price}
                   images={item.images}

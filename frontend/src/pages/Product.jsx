@@ -5,6 +5,7 @@ import { assets } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
 import ProductImageRibbon from "../components/ProductImageRibbon";
 import toast from "react-hot-toast";
+import ProductSkeleton from "../components/ProductSkeleton";
 
 const Product = () => {
   const { productId } = useParams();
@@ -279,7 +280,16 @@ const Product = () => {
       </div>
     </div>
   ) : (
-    <div className="opacity-0"></div>
+    <div>
+      <ProductSkeleton />
+
+      <RelatedProducts
+        id={productData._id}
+        material={productData.material}
+        category={productData.category}
+        subcategory={productData.subcategory}
+      />
+    </div>
   );
 };
 

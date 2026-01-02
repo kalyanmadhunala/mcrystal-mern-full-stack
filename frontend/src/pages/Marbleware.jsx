@@ -12,7 +12,7 @@ const Marbleware = () => {
   const [filteredProducts, setfilteredProducts] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
   const [sortType, setSortType] = useState("relevent");
-  const [outOff, setOutff] = useState(0);
+  const [uiLoading, setUiLoading] = useState(true);
 
   // price slider / input state
   const [priceMinLimit, setPriceMinLimit] = useState(0);
@@ -60,6 +60,7 @@ const Marbleware = () => {
   const getBaseProducts = useCallback(() => {
     if (!marbleProducts || marbleProducts.length === 0) return [];
     if (!subcategory) return marbleProducts;
+    setUiLoading(false);
     return marbleProducts.filter(
       (item) =>
         item.subCategory === subcategory || item.category === subcategory
@@ -439,7 +440,12 @@ const Marbleware = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
-            {filteredProducts && filteredProducts.length > 0 ? (
+            {uiLoading ? (
+              
+              Array.from({ length: 8 }).map((_, index) => (
+                <ProductItem key={index} loading />
+              ))
+            ) : filteredProducts.length > 0 ? (
               filteredProducts.map((item, index) => (
                 <ProductItem
                   key={item._id ?? index}

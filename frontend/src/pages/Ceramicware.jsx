@@ -12,6 +12,7 @@ const Ceramicware = () => {
   const [filteredProducts, setfilteredProducts] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
   const [sortType, setSortType] = useState("relevent");
+  const [uiLoading, setUiLoading] = useState(true);
 
   // price slider / input state
   const [priceMinLimit, setPriceMinLimit] = useState(0);
@@ -32,7 +33,7 @@ const Ceramicware = () => {
   const [isOutofstock, setIsOutofStock] = useState(false);
 
   const formatTitle = (slug) => {
-    if (!slug) return "ALL CERAMICWARE"
+    if (!slug) return "ALL CERAMICWARE";
     return slug
       .replace(/-and-/gi, " & ")
       .replace(/-or-/gi, " / ")
@@ -58,6 +59,7 @@ const Ceramicware = () => {
   const getBaseProducts = useCallback(() => {
     if (!ceramicProducts || ceramicProducts.length === 0) return [];
     if (!subcategory) return ceramicProducts;
+    setUiLoading(false);
     return ceramicProducts.filter(
       (item) =>
         item.subCategory === subcategory || item.category === subcategory
@@ -128,10 +130,9 @@ const Ceramicware = () => {
       );
     }
 
-
     //out of stock logic
     if (!isOutofstock) {
-      base = base.filter((item) => item.quantity > 0)
+      base = base.filter((item) => item.quantity > 0);
     }
 
     //search filter
@@ -188,7 +189,7 @@ const Ceramicware = () => {
     isBestSellerOnly,
     isPremiumOnly,
     isPremiumBestOnly,
-    isOutofstock
+    isOutofstock,
   ]);
 
   // Apply handler for Set button: validate/clamp then set applied values
@@ -217,7 +218,7 @@ const Ceramicware = () => {
     setPriceMax(max);
     setInputMin(min);
     setInputMax(max);
-    setSortType("relevent")
+    setSortType("relevent");
   };
 
   // Reset handler: restore inputs & applied values to the current scope limits
@@ -226,7 +227,7 @@ const Ceramicware = () => {
     setPriceMax(priceMaxLimit);
     setInputMin(priceMinLimit);
     setInputMax(priceMaxLimit);
-    setSortType("relevent")
+    setSortType("relevent");
   };
 
   //Clear handler
@@ -238,8 +239,8 @@ const Ceramicware = () => {
     setIsBestSellerOnly(false);
     setIsPremiumOnly(false);
     setIsPremiumBestOnly(false);
-    setIsOutofStock(false)
-    setSortType("relevent")
+    setIsOutofStock(false);
+    setSortType("relevent");
   };
 
   const sortProducts = () => {
@@ -262,11 +263,15 @@ const Ceramicware = () => {
     sortProducts();
   }, [sortType]);
 
-  const props = getBaseProducts()
-  const OutOff = props.filter((item) => item.quantity === 0).length
+  const props = getBaseProducts();
+  const OutOff = props.filter((item) => item.quantity === 0).length;
 
   return (
-    <div className={`${showSearch? "" : "mt-10"} px-4 sm:px-[3vw] md:px-[5vw] lg:px-[7vw]`}>
+    <div
+      className={`${
+        showSearch ? "" : "mt-10"
+      } px-4 sm:px-[3vw] md:px-[5vw] lg:px-[7vw]`}
+    >
       <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10">
         {/* Filter Options */}
         <div className="min-w-60">
@@ -403,15 +408,17 @@ const Ceramicware = () => {
                 />
                 Premium Best Sellers
               </p>
-              {OutOff > 0 && (<p className="flex gap-2">
-                <input
-                  className="w-3"
-                  type="checkbox"
-                  checked={isOutofstock}
-                  onChange={(e) => setIsOutofStock(e.target.checked)}
-                />
-                Include Out of Stock ({OutOff})
-              </p>)}
+              {OutOff > 0 && (
+                <p className="flex gap-2">
+                  <input
+                    className="w-3"
+                    type="checkbox"
+                    checked={isOutofstock}
+                    onChange={(e) => setIsOutofStock(e.target.checked)}
+                  />
+                  Include Out of Stock ({OutOff})
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -421,7 +428,7 @@ const Ceramicware = () => {
           <div className="flex justify-between text-base sm:text-2xl mb-4">
             <Title text2={formatTitle(subcategory)} />
             <select
-            value={sortType}
+              value={sortType}
               onChange={(e) => setSortType(e.target.value)}
               className="border-2 border-gray-300 text-sm px-2"
               id="pricesort"
@@ -433,7 +440,12 @@ const Ceramicware = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
-            {filteredProducts && filteredProducts.length > 0 ? (
+            {uiLoading ? (
+              
+              Array.from({ length: 8 }).map((_, index) => (
+                <ProductItem key={index} loading />
+              ))
+            ) : filteredProducts.length > 0 ? (
               filteredProducts.map((item, index) => (
                 <ProductItem
                   key={item._id ?? index}
