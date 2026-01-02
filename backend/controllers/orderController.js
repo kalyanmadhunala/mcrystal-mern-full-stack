@@ -12,6 +12,7 @@ import { amountInWords } from "../utils/amountToWords.js";
 //global variable
 const currency = "inr";
 const delivery_charges = 100.00;
+const logoUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAAAuCAYAAAB2Y3NyAAAACXBIWXMAAA9hAAAPYQGoP6dpAADs6klEQVR4nO3dd3hUZf7/8feG9EJCJCl1i1i1i8bGNsY2hhYKFhYWFhYXFhYWFhYXNpfH4BQVFmREUFAQEBQWBBUUQEBUVFRYUFhYXFRcXFxYXFxeVVVdP7N2b2Z19n7s9M5Pfe+ZzZz7t1Xp+v3fs+5zznnvOec55z3vvJ2UlEQVRYhe2RYYykIBRGD4QW0gEhBYKAg0EuCIoh0EqCIuhEQpKBiigKEFRQENohEooRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd0IiEKohEIoRApd"
 
 //gateway initialize
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -53,7 +54,7 @@ const placeOrderCOD = async (req, res) => {
 
     //Generate Invoice HTML
     const html = invoiceTemplate({
-      logoUrl: process.env.LOGO_URL,
+      logoUrl: logoUrl,
       order: newOrder,
       invoiceNo,
       invoiceDate: new Date().toLocaleDateString(),
@@ -189,7 +190,7 @@ const verifyStripePayment = async (req, res) => {
 
       //Generate Invoice HTML
       const html = invoiceTemplate({
-        logoUrl: process.env.LOGO_URL,
+        logoUrl: logoUrl,
         order: orderData,
         invoiceNo,
         invoiceDate: new Date().toLocaleDateString(),
@@ -310,7 +311,7 @@ const verifyRazorpayPayment = async (req, res) => {
 
       //Generate Invoice HTML
       const html = invoiceTemplate({
-        logoUrl: process.env.LOGO_URL,
+        logoUrl: logoUrl,
         order: orderData,
         invoiceNo,
         invoiceDate: new Date().toLocaleDateString(),

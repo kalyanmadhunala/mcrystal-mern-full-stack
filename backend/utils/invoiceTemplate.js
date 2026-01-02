@@ -1,5 +1,5 @@
 export const invoiceTemplate = ({
-  logoUrl = "https://res.cloudinary.com/dbanrkx7w/image/upload/v1767120544/m_crystal_logo_cbglsu.png",
+  logoUrl,
   order,
   invoiceNo,
   invoiceDate,
