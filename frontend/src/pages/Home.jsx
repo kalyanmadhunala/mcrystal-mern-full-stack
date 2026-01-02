@@ -106,17 +106,17 @@ const Home = () => {
             autoPlay
             muted
             playsInline
-            loop
-            className="max-w-full max-h-full object-contain" // optional: better scaling
+            loop // ← this makes it loop infinitely
+            className="max-w-full max-h-full object-contain"
           >
             <source
-              src="https://res.cloudinary.com/dbanrkx7w/image/upload/f_mp4,fl_loop/v1767339690/mcrystalanima_w_bg.gif"
+              src="https://res.cloudinary.com/dbanrkx7w/image/upload/f_mp4/v1767339690/mcrystalanima_w_bg.gif"
               type="video/mp4"
             />
-            {/* Fallback: the original optimized GIF */}
+            {/* Reliable fallback if video autoplay is blocked */}
             <img
               src="https://res.cloudinary.com/dbanrkx7w/image/upload/q_auto,f_auto/v1767339690/mcrystalanima_w_bg.gif"
-              alt="Loading animation"
+              alt="Splash animation"
               className="max-w-full max-h-full object-contain"
             />
           </video>
