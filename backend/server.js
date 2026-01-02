@@ -10,9 +10,12 @@ import productRouter from "./routes/productRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 
-
-
-const allowedOrigins = ["https://mcrystalz.web.app","https://mcrystalz.firebaseapp.com"]
+const allowedOrigins = [
+  "http://loacalhost:5173",
+  "http://loacalhost:5174",
+  "https://mcrystalz.web.app",
+  "https://mcrystalz.firebaseapp.com",
+];
 //App config
 const app = express();
 const port = process.env.PORT || 4000;
@@ -42,7 +45,7 @@ app.use("/admin", adminRouter);
 app.use("/account", googleRouter);
 app.use("/product", productRouter);
 app.use("/cart", cartRouter);
-app.use('/order', orderRouter);
+app.use("/order", orderRouter);
 
 app.listen(port, () => {
   console.log("Server started on PORT :" + port);
