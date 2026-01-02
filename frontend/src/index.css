@@ -191,12 +191,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 
-@font-face {
-  font-family: "Bluestar";
-  src: url("./assets/fonts/bluestarregular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
 
 @layer utilities {
   /* ensure transition of max-height is allowed */
