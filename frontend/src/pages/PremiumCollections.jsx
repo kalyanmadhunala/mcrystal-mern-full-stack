@@ -51,11 +51,27 @@ const PremiumCollections = () => {
     document.title = title + " | M Crystal";
   }, []);
 
+  useEffect(() => {
+  if (!premiumCollection || premiumCollection.length === 0) {
+    setUiLoading(true);
+    return;
+  }
+
+  // simulate async-ready UI (prevents flicker)
+  setUiLoading(true);
+
+  const timer = setTimeout(() => {
+    setUiLoading(false);
+  }, 300); // 300ms is perfect UX
+
+  return () => clearTimeout(timer);
+}, [premiumCollection, material]);
+
+
   // base products for current category
   const getBaseProducts = useCallback(() => {
     if (!premiumCollection || premiumCollection.length === 0) return [];
     if (!material) return premiumCollection;
-    setUiLoading(false)
     return premiumCollection.filter((item) => item.material === material);
   }, [premiumCollection, material]);
 

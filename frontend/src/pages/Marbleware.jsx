@@ -56,11 +56,25 @@ const Marbleware = () => {
     document.title = title + " - Marbleware | M Crystal";
   }, [subcategory]);
 
+  useEffect(() => {
+    if (!marbleProducts || marbleProducts.length === 0) {
+      setUiLoading(true);
+      return;
+    }
+
+    setUiLoading(true);
+
+    const timer = setTimeout(() => {
+      setUiLoading(false);
+    }, 300); // smooth skeleton UX
+
+    return () => clearTimeout(timer);
+  }, [marbleProducts, subcategory]);
+
   // compute baseProducts depending on whether a subcategory is active
   const getBaseProducts = useCallback(() => {
     if (!marbleProducts || marbleProducts.length === 0) return [];
     if (!subcategory) return marbleProducts;
-    setUiLoading(false);
     return marbleProducts.filter(
       (item) =>
         item.subCategory === subcategory || item.category === subcategory
@@ -120,7 +134,6 @@ const Marbleware = () => {
     setIsPremiumOnly(false);
     setIsPremiumBestOnly(false);
   }, [getBaseProducts]);
-
 
   const applyFilter = () => {
     let base = marbleProducts || [];
@@ -241,7 +254,7 @@ const Marbleware = () => {
     setIsBestSellerOnly(false);
     setIsPremiumOnly(false);
     setIsPremiumBestOnly(false);
-    setIsOutofStock(false)
+    setIsOutofStock(false);
     setSortType("relevent");
   };
 
@@ -265,9 +278,9 @@ const Marbleware = () => {
     sortProducts();
   }, [sortType]);
 
-  const props = getBaseProducts()
+  const props = getBaseProducts();
 
-  const OutOff = props.filter((item) => item.quantity === 0).length
+  const OutOff = props.filter((item) => item.quantity === 0).length;
   return (
     <div
       className={`${
@@ -410,15 +423,17 @@ const Marbleware = () => {
                 />
                 Premium Best Sellers
               </p>
-              {OutOff > 0 && (<p className="flex gap-2">
-                <input
-                  className="w-3"
-                  type="checkbox"
-                  checked={isOutofstock}
-                  onChange={(e) => setIsOutofStock(e.target.checked)}
-                />
-                Include Out of Stock ({OutOff})
-              </p>)}
+              {OutOff > 0 && (
+                <p className="flex gap-2">
+                  <input
+                    className="w-3"
+                    type="checkbox"
+                    checked={isOutofstock}
+                    onChange={(e) => setIsOutofStock(e.target.checked)}
+                  />
+                  Include Out of Stock ({OutOff})
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -441,7 +456,6 @@ const Marbleware = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
             {uiLoading ? (
-              
               Array.from({ length: 8 }).map((_, index) => (
                 <ProductItem key={index} loading />
               ))

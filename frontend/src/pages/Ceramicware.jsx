@@ -55,11 +55,26 @@ const Ceramicware = () => {
     document.title = title + " - Ceramicware | M Crystal";
   }, [subcategory]);
 
+  useEffect(() => {
+  if (!ceramicProducts || ceramicProducts.length === 0) {
+    setUiLoading(true);
+    return;
+  }
+
+  setUiLoading(true);
+
+  const timer = setTimeout(() => {
+    setUiLoading(false);
+  }, 300); // smooth skeleton UX
+
+  return () => clearTimeout(timer);
+}, [ceramicProducts, subcategory]);
+
+
   // compute baseProducts depending on whether a subcategory is active
   const getBaseProducts = useCallback(() => {
     if (!ceramicProducts || ceramicProducts.length === 0) return [];
     if (!subcategory) return ceramicProducts;
-    setUiLoading(false);
     return ceramicProducts.filter(
       (item) =>
         item.subCategory === subcategory || item.category === subcategory
