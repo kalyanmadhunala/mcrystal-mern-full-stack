@@ -13,6 +13,7 @@ const ProductItem = ({
   loading = false,
 }) => {
   const { currency } = useContext(ShopContext);
+  console.log(id)
 
   /* ================= SKELETON ================= */
   if (loading) {

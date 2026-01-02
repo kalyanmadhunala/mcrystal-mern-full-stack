@@ -216,7 +216,13 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
-.shimmer::before {
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background-color: #e5e7eb; /* Tailwind gray-200 */
+}
+
+.shimmer::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -227,9 +233,8 @@ input[type=number]::-webkit-outer-spin-button {
     rgba(255, 255, 255, 0.6),
     transparent
   );
-  animation: shimmer 1.2s infinite;
+  animation: shimmer 1.2s infinite linear;
 }
-
 
 
 
