@@ -1,5 +1,5 @@
 export const invoiceTemplate = ({
-  logoUrl,
+  logoUrl = "https://res.cloudinary.com/dbanrkx7w/image/upload/v1767120544/m_crystal_logo_cbglsu.png",
   order,
   invoiceNo,
   invoiceDate,
@@ -60,7 +60,7 @@ export const invoiceTemplate = ({
 
 <!-- HEADER -->
 <div class="header">
-  <img src="${logoUrl}" class="logo" />
+  <img src="${logoUrl}" class="logo" alt="M Crystal Store"/>
   <b>(Development Mode)</b>
   <div class="title">
     <h2>Bill of Supply</h2>
