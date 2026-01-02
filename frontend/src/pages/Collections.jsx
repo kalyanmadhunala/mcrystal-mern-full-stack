@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Title from "../components/Title";
-import { assets } from "../assets/assets";
+import { cloudinaryUrl } from "../utils/cloudinary";
 
 /**
  * Collections.jsx
@@ -9,84 +9,89 @@ import { assets } from "../assets/assets";
  */
 
 const marbleCategories = [
-    {
-        to: "/marbleware/kitchenware",
-        title: "Kitchenware",
-        img: assets.marble_kitchenware,
-        sub: "Explore our elegant kitchenware.",
-    },
-    {
-        to: "/marbleware/bathware",
-        title: "Bathware",
-        img: assets.marble_bathware,
-        sub: "Explore our premium bathware.",
-    },
-    {
-        to: "/marbleware/home-decors",
-        title: "Home Decors",
-        img: assets.marble_homedecors,
-        sub: "Explore our artistic decor.",
-    },
-    {
-        to: "/marbleware/designer-collection",
-        title: "Designer Collection",
-        img: assets.marble_designer_collection,
-        sub: "Explore our designer pieces.",
-    },
-    {
-        to: "/marbleware/devotional-collection",
-        title: "Devotional Collection",
-        img: assets.marble_devotional_collection,
-        sub: "Explore our divine idols.",
-    },
-    {
-        to: "/marbleware/pooja-collection",
-        title: "Pooja Collection",
-        img: assets.marble_pooja_collection,
-        sub: "Explore our pooja essentials.",
-    },
+  {
+    to: "/marbleware/kitchenware",
+    title: "Kitchenware",
+    img: "marble_kitchenware",
+    sub: "Explore our elegant kitchenware.",
+  },
+  {
+    to: "/marbleware/bathware",
+    title: "Bathware",
+    img: "marble_bathware",
+    sub: "Explore our premium bathware.",
+  },
+  {
+    to: "/marbleware/home-decors",
+    title: "Home Decors",
+    img: "marble_homedecor",
+    sub: "Explore our artistic decor.",
+  },
+  {
+    to: "/marbleware/designer-collection",
+    title: "Designer Collection",
+    img: "marble_designer_collection",
+    sub: "Explore our designer pieces.",
+  },
+  {
+    to: "/marbleware/devotional-collection",
+    title: "Devotional Collection",
+    img: "marble_devotional_collection",
+    sub: "Explore our divine idols.",
+  },
+  {
+    to: "/marbleware/pooja-collection",
+    title: "Pooja Collection",
+    img: "marble_pooja_collection",
+    sub: "Explore our pooja essentials.",
+  },
 ];
 
 const ceramicCategories = [
-    {
-        to: "/ceramicware/bathware",
-        title: "Bathware",
-        img: assets.ceramic_bathware,
-        sub: "Explore our ceramic bathware.",
-    },
-    {
-        to: "/ceramicware/drinkware",
-        title: "Drinkware",
-        img: assets.ceramic_drinkware,
-        sub: "Explore our crafted drinkware.",
-    },
-    {
-        to: "/ceramicware/home-decors",
-        title: "Home Decors",
-        img: assets.ceramic_homedecors,
-        sub: "Explore our ceramic decor.",
-    },
-    {
-        to: "/ceramicware/kitchenware",
-        title: "Kitchenware",
-        img: assets.ceramic_kitchenware,
-        sub: "Explore our ceramic kitchenware.",
-    },
-    {
-        to: "/ceramicware/serveware",
-        title: "Serveware",
-        img: assets.ceramic_serveware,
-        sub: "Explore our elegant serveware.",
-    },
-    {
-        to: "/ceramicware/tableware",
-        title: "Tableware",
-        img: assets.ceramic_tableware,
-        sub: "Explore our classic tableware.",
-    },
+  {
+    to: "/ceramicware/bathware",
+    title: "Bathware",
+    img: "ceramic_bathware",
+    sub: "Explore our ceramic bathware.",
+  },
+  {
+    to: "/ceramicware/drinkware",
+    title: "Drinkware",
+    img: "ceramic_drinkware",
+    sub: "Explore our crafted drinkware.",
+  },
+  {
+    to: "/ceramicware/home-decors",
+    title: "Home Decors",
+    img: "ceramic_homedecors",
+    sub: "Explore our ceramic decor.",
+  },
+  {
+    to: "/ceramicware/kitchenware",
+    title: "Kitchenware",
+    img: "ceramic_kitchenware",
+    sub: "Explore our ceramic kitchenware.",
+  },
+  {
+    to: "/ceramicware/serveware",
+    title: "Serveware",
+    img: "ceramic_serveware",
+    sub: "Explore our elegant serveware.",
+  },
+  {
+    to: "/ceramicware/tableware",
+    title: "Tableware",
+    img: "ceramic_tableware",
+    sub: "Explore our classic tableware.",
+  },
 ];
 
 const CategoryCard = ({ to, title, img, sub }) => {
+  const bgImage = cloudinaryUrl({
+    publicId: img,
+    width: 600,
+    height: 400,
+  });
   return (
     <Link
       to={to}
@@ -99,7 +104,7 @@ const CategoryCard = ({ to, title, img, sub }) => {
       absolute inset-0 bg-center bg-cover transition-all duration-700
       group-hover:scale-110 lg:group-hover:blur-xs
     "
-        style={{ backgroundImage: `url(${img})` }}
+        style={{ backgroundImage: `url(${bgImage})` }}
       />
 
       {/* Neumorphic Surface */}
@@ -112,8 +117,7 @@ const CategoryCard = ({ to, title, img, sub }) => {
       transition-transform duration-500
       group-hover:scale-[1.02]
     "
-      > 
-
+      >
         {/* Floating Title */}
         <div
           className="absolute left-4 right-4 bottom-4 flex items-center justify-between z-20"
@@ -149,7 +153,6 @@ const CategoryCard = ({ to, title, img, sub }) => {
               {sub}
             </p>
           </div>
-          
 
           {/* Chevron icon */}
           <span
@@ -183,8 +186,7 @@ const CategoryCard = ({ to, title, img, sub }) => {
 };
 
 const Collections = () => {
-
-    useEffect(() => {
+  useEffect(() => {
     const title = "Collections";
     document.title = title + " | M Crystal";
   }, []);

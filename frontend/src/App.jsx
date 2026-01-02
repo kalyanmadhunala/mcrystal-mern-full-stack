@@ -26,9 +26,9 @@ import Verify from "./pages/Verify";
 import ForgotPassword from "./pages/ForgotPassword";
 
 
-const App = () => {
 
-  const { loggedin } = useContext(ShopContext)
+const App = () => {
+  const { loggedin } = useContext(ShopContext);
 
   return (
     <div>
@@ -46,13 +46,43 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/products/:productId" element={<Product />} />
-        <Route path="/login" element={loggedin ? <Navigate to="/" replace /> : <Login />} />
-        <Route path="/signup" element={loggedin ? <Navigate to="/" replace /> : <SignUp />} />
-        <Route path="/forgot-password" element={loggedin ? <Navigate to="/" replace /> : <ForgotPassword />} />
-        <Route path="/place-order" element={<ProtectedRoute><PlaceOrder/></ProtectedRoute>} />
-        <Route  path="/orders"  element={<ProtectedRoute><Orders /></ProtectedRoute>}/>
+        <Route
+          path="/login"
+          element={loggedin ? <Navigate to="/" replace /> : <Login />}
+        />
+        <Route
+          path="/signup"
+          element={loggedin ? <Navigate to="/" replace /> : <SignUp />}
+        />
+        <Route
+          path="/forgot-password"
+          element={loggedin ? <Navigate to="/" replace /> : <ForgotPassword />}
+        />
+        <Route
+          path="/place-order"
+          element={
+            <ProtectedRoute>
+              <PlaceOrder />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/set-password" element={<SetPassword />} />
-        <Route path="/verify" element={<ProtectedRoute><Verify /></ProtectedRoute>} />
+        <Route
+          path="/verify"
+          element={
+            <ProtectedRoute>
+              <Verify />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
         <Route path="/not-found" element={<NotFound />} />
       </Routes>

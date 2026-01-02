@@ -92,7 +92,6 @@ const ShopContextProvider = (props) => {
       } else {
         setLogin(false);
         setUserData(null);
-        toast.error(data.msg)
       }
     } catch (error) {
       setLogin(false);
