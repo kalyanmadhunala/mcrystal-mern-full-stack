@@ -8,8 +8,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js",
-    "postinstall": "npx playwright install chromium"
+    "server": "nodemon server.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

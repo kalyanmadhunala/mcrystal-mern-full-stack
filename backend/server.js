@@ -18,7 +18,6 @@ const allowedOrigins = [
 ];
 //App config
 const app = express();
-const port = process.env.PORT || 4000;
 connectDB();
 
 //middlewares
@@ -47,6 +46,7 @@ app.use("/product", productRouter);
 app.use("/cart", cartRouter);
 app.use("/order", orderRouter);
 
-app.listen(port, () => {
-  console.log("Server started on PORT :" + port);
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => {
+  console.log(`Server started on PORT: ${PORT}`);
 });
