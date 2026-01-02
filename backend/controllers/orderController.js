@@ -25,7 +25,6 @@ try {
     const logoBuffer = fs.readFileSync(logoPath);
     const logoBase64 = logoBuffer.toString("base64");
     logoDataUrl = `data:image/png;base64,${logoBase64}`;
-    console.log("Logo loaded successfully from local file");
   } else {
     console.warn("Local logo file not found, using Cloudinary fallback");
   }

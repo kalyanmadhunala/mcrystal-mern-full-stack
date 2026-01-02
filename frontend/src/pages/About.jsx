@@ -18,7 +18,7 @@ const About = () => {
         <div className="mt-10 flex flex-col md:flex-row gap-16">
           <img
             className="w-full md:max-w-[450px]"
-            src={assets.about_us}
+            src="https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/about_us.png"
             alt="about"
           />
           <div className="flex flex-col justify-center gap-6 md:w-2/4 text-gray-600">

@@ -144,7 +144,7 @@ ${itemRows}
 </tr>
 <tr>
   <td class="right">Delivery Fee</td>
-  <td class="right">₹${delivery_charges}</td>
+  <td class="right">₹${delivery_charges}.00</td>
 </tr>
 <tr class="total">
   <td class="right">Grand Total</td>
