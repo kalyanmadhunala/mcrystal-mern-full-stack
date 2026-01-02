@@ -1,18 +1,3 @@
-//Ceramic product images
-import ceramic_bathware from "./CeramicWare/ceramic_bathware.png";
-import ceramic_kitchenware from "./CeramicWare/ceramic_kitchenware.png";
-import ceramic_drinkware from "./CeramicWare/ceramic_drinkware.png";
-import ceramic_homedecors from "./CeramicWare/ceramic_homedecors.png";
-import ceramic_serveware from "./CeramicWare/ceramic_serveware.png";
-import ceramic_tableware from "./CeramicWare/ceramic_tableware.png";
-
-//marble product images
-import marble_bathware from "./MarbleWare/marble_bathware.png";
-import marble_kitchenware from "./MarbleWare/marble_kitchenware.png";
-import marble_homedecors from "./MarbleWare/marble_homedecors.png";
-import marble_devotional_collection from "./MarbleWare/marble_devotional_collection.png";
-import marble_designer_collection from "./MarbleWare/marble_designer_collection.png";
-import marble_pooja_collection from "./MarbleWare/marble_pooja_collection.png";
 
 //desktopimages & logo
 import desktopheroimg from "./desktopimages/desktopheroimg.png";
