@@ -18,7 +18,7 @@ const About = () => {
         <div className="mt-10 flex flex-col md:flex-row gap-16">
           <img
             className="w-full md:max-w-[450px]"
-            src="https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/about_us.png"
+            src="https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto:450,q_auto/about_us.png"
             alt="about"
           />
           <div className="flex flex-col justify-center gap-6 md:w-2/4 text-gray-600">
@@ -63,18 +63,27 @@ const About = () => {
         <div className="flex flex-col md:flex-row text-sm mb-20">
           <div className="border border-gray-200 px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
             <b>Quality Assurance:</b>
-            <p className="text-gray-600">We ensure every product meets the highest standards of craftsmanship, durability, and finish.</p>
+            <p className="text-gray-600">
+              We ensure every product meets the highest standards of
+              craftsmanship, durability, and finish.
+            </p>
           </div>
           <div className="border border-gray-200 px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
             <b>Convenience:</b>
-            <p className="text-gray-600">We offer a seamless shopping experience with easy browsing, quick checkout, and reliable delivery.</p>
+            <p className="text-gray-600">
+              We offer a seamless shopping experience with easy browsing, quick
+              checkout, and reliable delivery.
+            </p>
           </div>
           <div className="border border-gray-200 px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
             <b>Exceptional Customer Service:</b>
-            <p className="text-gray-600">We provide prompt, friendly support to make every step of your shopping experience effortless.</p>
+            <p className="text-gray-600">
+              We provide prompt, friendly support to make every step of your
+              shopping experience effortless.
+            </p>
           </div>
         </div>
-        <NewsletterBox/>
+        <NewsletterBox />
       </div>
     </div>
   );

@@ -102,11 +102,12 @@ const Home = () => {
             ${fadeOut ? "opacity-0" : "opacity-100"}
           `}
         >
-          <img
-            src={assets.mcrystalanima_w_bg}
-            alt="MCRYSTAL splash"
-            className="w-160 object-contain"
-          />
+          <video autoplay muted playsinline>
+            <source
+              src="https://res.cloudinary.com/dbanrkx7w/image/upload/f_mp4/v1767339690/mcrystalanima_w_bg.gif"
+              type="video/mp4"
+            />
+          </video>
         </div>
       )}
 
