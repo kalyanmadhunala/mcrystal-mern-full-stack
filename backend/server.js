@@ -11,8 +11,6 @@ import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 
 const allowedOrigins = [
-  "http://loacalhost:5173",
-  "http://loacalhost:5174",
   "https://mcrystalz.web.app",
   "https://mcrystalz.firebaseapp.com",
 ];

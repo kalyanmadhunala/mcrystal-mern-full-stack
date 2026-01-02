@@ -17,7 +17,7 @@ const Navbar = () => {
     setLogin,
     userData,
     setUserData,
-    navigate
+    navigate,
   } = useContext(ShopContext);
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,14 +27,12 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
 
-
-
   const openMobileMenu = () => setIsMobileMenuOpen(true);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
   const [visible, setVisible] = useState(false);
   const [navVisible, setNavVisible] = useState(true);
   const location = useLocation();
-  const dropdownRef = useRef()
+  const dropdownRef = useRef();
 
   const closeTimer = useRef(null);
   const menuRef = useRef(null);
@@ -44,8 +42,6 @@ const Navbar = () => {
       location.pathname.includes("marbleware") ||
       location.pathname.includes("ceramicware") ||
       location.pathname.includes("premium")
-      
-
     ) {
       setVisible(true);
     } else {
@@ -65,18 +61,17 @@ const Navbar = () => {
   }, [location]);
 
   useEffect(() => {
-  const handleClickOutside = (e) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-      setOpen(false);
-    }
-  };
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
 
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
-
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -103,23 +98,23 @@ const Navbar = () => {
     closeTimer.current = setTimeout(() => setOpenDropdown(null), delay);
   };
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
+  try {
+    axios.defaults.withCredentials = true;
+    const { data } = await axios.post(backendUrl + "/user/logout");
 
-    try {
-      axios.defaults.withCredentials = true
-
-      const {data} = await axios.post(backendUrl + "/user/logout")
-      data.success && setLogin(false)
-      data.success && setUserData(false)
-      if (!data.success) {
-        console.log(data.msg)
-      }
-      toast.success(data.msg)
-    } catch (error) {
-      toast.error(error.message)
+    if (data.success) {
+      setLogin(false);
+      setUserData(false);
+      toast.success(data.msg);
+    } else {
+      console.log(data.msg);
+      toast.error(data.msg);
     }
+  } catch (error) {
+    toast.error(error.response?.data?.msg || error.message);
   }
-
+};
   return (
     navVisible && (
       <>
@@ -256,7 +251,6 @@ const Navbar = () => {
 
               <div ref={dropdownRef} className="group relative">
                 {loggedin && userData ? (
-                  
                   !imgError ? (
                     <img
                       src={userData.picture}
@@ -266,7 +260,10 @@ const Navbar = () => {
                       onClick={() => setOpen(!open)}
                     />
                   ) : (
-                    <div onClick={() => setOpen(!open)} className="cursor-pointer flex justify-center items-center rounded-full bg-primary text-white w-8 h-8">
+                    <div
+                      onClick={() => setOpen(!open)}
+                      className="cursor-pointer flex justify-center items-center rounded-full bg-primary text-white w-8 h-8"
+                    >
                       {userData.name[0].toUpperCase()}
                     </div>
                   )
@@ -280,12 +277,34 @@ const Navbar = () => {
                   </Link>
                 )}
 
-                <div className={`absolute dropdown-menu right-0 pt-4 ${open ? "block" : "hidden"} md:group-hover:block md:block}`}>
-                  {loggedin && (<div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded-2xl">
-                    <p className="cursor-pointer hover:text-black">Profile</p>
-                    <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black">Orders</p>
-                    <a href="/" onClick={handleLogout} className="cursor-pointer hover:text-black">Logout</a>
-                  </div>)}
+                <div
+                  className={`absolute dropdown-menu right-0 pt-4 ${
+                    open ? "block" : "hidden"
+                  } md:group-hover:block md:block}`}
+                >
+                  {loggedin && (
+                    <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded-2xl">
+                      <p className="cursor-pointer hover:text-black">Profile</p>
+                      <p
+                        onClick={() => navigate("/orders")}
+                        className="cursor-pointer hover:text-black"
+                      >
+                        Orders
+                      </p>
+                      <a
+                        href="/"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleLogout().then(() => {
+                            navigate('/'); 
+                          });
+                        }}
+                        className="cursor-pointer hover:text-black"
+                      >
+                        Logout
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
               <Link to="/cart" className="relative">
