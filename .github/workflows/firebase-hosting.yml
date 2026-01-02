@@ -33,3 +33,4 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_TOKEN }}"
           channelId: live
           projectId: m-crystal-a8960
+          entryPoint: frontend
