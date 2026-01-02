@@ -107,7 +107,6 @@ const Home = () => {
             muted
             playsInline
             loop // ← this makes it loop infinitely
-            className="max-w-full max-h-full object-contain"
           >
             <source
               src="https://res.cloudinary.com/dbanrkx7w/image/upload/f_mp4/v1767339690/mcrystalanima_w_bg.gif"
@@ -117,7 +116,6 @@ const Home = () => {
             <img
               src="https://res.cloudinary.com/dbanrkx7w/image/upload/q_auto,f_auto/v1767339690/mcrystalanima_w_bg.gif"
               alt="Splash animation"
-              className="max-w-full max-h-full object-contain"
             />
           </video>
         </div>
