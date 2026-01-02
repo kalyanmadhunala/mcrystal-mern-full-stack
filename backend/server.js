@@ -12,7 +12,7 @@ import orderRouter from "./routes/orderRoute.js";
 
 
 
-const allowedOrigins = ["http://localhost:5173","http://localhost:5174"]
+const allowedOrigins = ["https://mcrystalz.web.app","https://mcrystalz.firebaseapp.com"]
 //App config
 const app = express();
 const port = process.env.PORT || 4000;
