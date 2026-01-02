@@ -55,7 +55,7 @@ const ProductItem = ({
           className={`hover:scale-110 transition ease-in-out ${
             quantity === 0 ? "bg-primary/30" : ""
           }`}
-          src={images[0]}
+          src={images?.[0]}
           alt={name}
         />
 
