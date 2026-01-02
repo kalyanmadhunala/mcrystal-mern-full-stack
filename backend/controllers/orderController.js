@@ -16,7 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Go one level up from controllers/ to backend/, then into assets/
-const logoPath = path.join(__dirname, "..", "assets", "m_crystal_logo_cbglsu.png");
+const logoPath = path.join(__dirname, "..", "assets", "m_crystal_logo.png");
 
 let logoDataUrl = "https://res.cloudinary.com/dbanrkx7w/image/upload/v1767120544/m_crystal_logo_cbglsu.png"; // fallback
 
@@ -28,11 +28,9 @@ try {
     console.log("Logo loaded successfully from local file");
   } else {
     console.warn("Local logo file not found, using Cloudinary fallback");
-    logoDataUrl = "https://res.cloudinary.com/dbanrkx7w/image/upload/v1767120544/m_crystal_logo_cbglsu.png";
   }
 } catch (err) {
   console.error("Error reading logo file:", err);
-  logoDataUrl = "https://res.cloudinary.com/dbanrkx7w/image/upload/v1767120544/m_crystal_logo_cbglsu.png";
 }
 
 //global variable
