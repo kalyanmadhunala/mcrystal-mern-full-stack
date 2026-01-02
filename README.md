@@ -7,7 +7,7 @@ A **production-grade MERN stack e-commerce application** built for selling premi
 ## 🌐 Live Links
 
 - **User Website:** https://mcrystalz.web.app  
-- **Admin Panel:** https://mcrystalz-admin.web.app  
+- **Admin Panel:** https://mcrystalstoreadmin.web.app  
 - **Backend API:** https://mcrystal-mern-full-stack.onrender.com  
 
 ---
