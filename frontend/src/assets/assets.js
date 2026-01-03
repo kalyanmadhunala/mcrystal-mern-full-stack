@@ -1,20 +1,8 @@
 
 //desktopimages & logo
-import desktopheroimg from "./desktopimages/desktopheroimg.png";
-import mobileheroimg from "./desktopimages/mobileheroimg.png";
 import logo from "./desktopimages/logo.png";
 import mcrystal_logo from "./desktopimages/mcrystal_logo.png";
 import frame from "./desktopimages/frame.png";
-import about_us from "./desktopimages/about_us.png";
-import bg_morning_lg from "./desktopimages/bg_morning_lg.png";
-import bg_morning_sm from "./desktopimages/bg_morning_sm.png";
-import bg_evening_lg from "./desktopimages/bg_evening_lg.png";
-import bg_evening_sm from "./desktopimages/bg_evening_sm.png";
-import bg_night_lg from "./desktopimages/bg_night_lg.png";
-import bg_night_sm from "./desktopimages/bg_night_sm.png";
-import notfound from "./desktopimages/notfound.jpg";
-import mcrystalanima_w_bg from "./desktopimages/mcrystalanima_w_bg.gif";
-
 
 //icons
 import bin_icon from "./icons/bin_icon.png";
@@ -67,17 +55,6 @@ export const assets = {
   empty_cart,
   empty_box,
   cross_icon,
-  desktopheroimg,
-  mobileheroimg,
-  mcrystalanima_w_bg,
-  about_us,
-  bg_morning_lg,
-  bg_morning_sm,
-  bg_evening_lg,
-  bg_evening_sm,
-  bg_night_lg,
-  bg_night_sm,
-  notfound,
   frame,
   logo,
   mcrystal_logo,

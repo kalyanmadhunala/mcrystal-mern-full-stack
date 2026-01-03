@@ -68,7 +68,7 @@ const Product = () => {
         });
         setShowShare(false);
       } catch (err) {
-        toast.error("Share cancelled");
+        console.log(err)
       }
     } else {
       setShowShare(true); // fallback to custom popup

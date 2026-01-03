@@ -9,10 +9,8 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
   const {
-    showSearch,
     setShowSearch,
     getCartCount,
-    cartItems,
     loggedin,
     setLogin,
     userData,
@@ -36,6 +34,7 @@ const Navbar = () => {
 
   const closeTimer = useRef(null);
   const menuRef = useRef(null);
+
 
   useEffect(() => {
     if (
@@ -72,6 +71,9 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+
+  
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -246,6 +248,14 @@ const Navbar = () => {
                   onClick={() => setShowSearch(true)}
                 />
               )}
+
+              <Link to="/wishlist">
+                <img
+                  src={assets.wishlist_line_icon}
+                  className="w-5 min-w-5"
+                  alt="cart"
+                />
+              </Link>
 
               {/* -------------------------- Profile Icon ---------------------------------- */}
 

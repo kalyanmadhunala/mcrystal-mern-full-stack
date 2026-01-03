@@ -14,13 +14,22 @@ const getTimeOfDay = () => {
 
   if (hour >= 5 && hour < 16) {
     // morning
-    return { lg: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_morning_lg", sm: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_morning_sm" };
+    return {
+      lg: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_morning_lg",
+      sm: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_morning_sm",
+    };
   } else if (hour >= 16 && hour < 20) {
     // evening
-    return { lg: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_evening_lg", sm: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_evening_sm" };
+    return {
+      lg: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_evening_lg",
+      sm: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_evening_sm",
+    };
   } else {
     // night
-    return { lg: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_night_lg", sm: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_night_sm" };
+    return {
+      lg: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_night_lg",
+      sm: "https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto,dpr_auto,f_auto,q_auto/bg_night_sm",
+    };
   }
 };
 
@@ -41,7 +50,14 @@ const ShopContextProvider = (props) => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const [token, setToken] = useState("");
+  const [wishlist, setWishlist] = useState(() => {
+    try {
+      const stored = localStorage.getItem("wishlist");
+      return stored ? JSON.parse(stored) : {};
+    } catch {
+      return {};
+    }
+  });
 
   const [hour, setHour] = useState(new Date().getHours());
   const [bannerState, setBannerState] = useState(() => getTimeOfDay());
@@ -82,7 +98,6 @@ const ShopContextProvider = (props) => {
     }
   };
 
-
   const getUserData = async () => {
     try {
       const { data } = await axios.get(backendUrl + "/user/userdata");
@@ -96,8 +111,8 @@ const ShopContextProvider = (props) => {
     } catch (error) {
       setLogin(false);
       setUserData(null);
-      console.log(error)
-      toast.error(error.message)
+      console.log(error);
+      toast.error(error.message);
     } finally {
       setAuthLoading(false);
     }
@@ -144,6 +159,41 @@ const ShopContextProvider = (props) => {
     }
 
     //localStorage.removeItem("cart")
+  };
+
+  const addToWishlist = async (itemId) => {
+    // ---------- LOGGED IN ----------
+    if (loggedin) {
+      try {
+        const { data } = await axios.post(backendUrl + "/wishlist/toggle", {
+          itemId,
+        });
+
+        if (data.success) {
+          setWishlist(data.wishlistData);
+          toast.success(data.msg);
+        } else {
+          toast.error(data.msg);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+      return;
+    }
+
+    // ---------- NOT LOGGED IN (LOCAL) ----------
+    setWishlist((prev) => {
+      const updated = { ...prev };
+
+      if (updated[itemId]) {
+        delete updated[itemId];
+      } else {
+        updated[itemId] = true;
+      }
+
+      return updated;
+    });
   };
 
   const getCartCount = () => {
@@ -225,6 +275,22 @@ const ShopContextProvider = (props) => {
     }
   };
 
+  const getUserWishlist = async () => {
+    try {
+      const response = await axios.get(
+        backendUrl + "/wishlist/getwishlistdata"
+      );
+      if (response.data.success) {
+        setWishlist(response.data.wishlistData);
+      } else {
+        toast.error(response.data.msg);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   const getCartAmount = () => {
     if (!products.length) return 0;
     let totalAmount = 0;
@@ -262,14 +328,9 @@ const ShopContextProvider = (props) => {
   useEffect(() => {
     if (!loggedin) {
       localStorage.setItem("cart", JSON.stringify(cartItems));
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
     }
-  }, [cartItems]);
-
-  useEffect(() => {
-    if (loggedin) {
-      getUserCart();
-    }
-  }, [loggedin]);
+  }, [cartItems, wishlist]);
 
   const setCartData = async () => {
     if (cartSynced) return;
@@ -289,6 +350,36 @@ const ShopContextProvider = (props) => {
     }
   };
 
+  const syncWishlistToAccount = async () => {
+    const localWishlist = JSON.parse(localStorage.getItem("wishlist")) || {};
+    if (Object.keys(localWishlist).length === 0) return;
+
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/wishlist/setwishlistdata",
+        { wishlist: localWishlist }
+      );
+
+      if (data.success) {
+        setWishlist(data.wishlistData);
+        localStorage.removeItem("wishlist");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (!loggedin) return;
+
+    const initUserData = async () => {
+      await syncWishlistToAccount();
+      await getUserWishlist();
+      await getUserCart();
+    };
+
+    initUserData();
+  }, [loggedin]);
 
   const marbleProducts = useMemo(
     () => products.filter((p) => p.material === "marble"),
@@ -299,40 +390,61 @@ const ShopContextProvider = (props) => {
     [products]
   );
 
-  const premiumCollection = products.filter(
-    (item) => item.premiumItem || (item.premiumItem && item.bestseller)
+  const premiumCollection = useMemo(
+    () => products.filter((item) => item.premiumItem || item.bestseller),
+    [products]
   );
 
-  const value = {
-    marbleProducts,
-    ceramicProducts,
-    premiumCollection,
-    bannerState,
-    navigate,
-    search,
-    setSearch,
-    setCartItems,
-    showSearch,
-    setShowSearch,
-    products,
-    currency,
-    delivery_fee,
-    cartItems,
-    addToCart,
-    getCartCount,
-    updateQuantity,
-    getCartAmount,
-    getCartSellAmount,
-    loggedin,
-    setLogin,
-    lastPath,
-    userData,
-    setUserData,
-    getUserData,
-    setCartData,
-    getUserCart,
-    authLoading
-  };
+  const value = useMemo(
+    () => ({
+      marbleProducts,
+      ceramicProducts,
+      premiumCollection,
+      bannerState,
+      navigate,
+      search,
+      setSearch,
+      setCartItems,
+      showSearch,
+      setShowSearch,
+      products,
+      currency,
+      delivery_fee,
+      cartItems,
+      addToCart,
+      getCartCount,
+      updateQuantity,
+      getCartAmount,
+      getCartSellAmount,
+      loggedin,
+      setLogin,
+      lastPath,
+      userData,
+      setUserData,
+      getUserData,
+      setCartData,
+      getUserCart,
+      authLoading,
+      wishlist,
+      addToWishlist,
+    }),
+    [
+      marbleProducts,
+      ceramicProducts,
+      premiumCollection,
+      bannerState,
+      navigate,
+      search,
+      showSearch,
+      products,
+      cartItems,
+      loggedin,
+      lastPath,
+      userData,
+      authLoading,
+      wishlist,
+    ]
+  );
 
   return (
     <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>

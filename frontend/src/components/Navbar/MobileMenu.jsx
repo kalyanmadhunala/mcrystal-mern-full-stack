@@ -295,6 +295,21 @@ const MobileMenu = ({ isOpen, close }) => {
             Premium Collections
           </NavLink>
 
+          {/* Wish;ist */}
+          <NavLink
+            to="/wishlist"
+            onClick={() => {
+              close(), setExpandedWare(null);
+              setExpandedHeading({
+                marbleware: null,
+                ceramicware: null,
+              });
+            }}
+            className="block py-2 text-md font-medium"
+          >
+            Wishlist
+          </NavLink>
+
           {/* About */}
           <NavLink
             to="/about"
@@ -305,7 +320,7 @@ const MobileMenu = ({ isOpen, close }) => {
                 ceramicware: null,
               });
             }}
-            className="block py-3 text-md font-medium"
+            className="block py-2 text-md font-medium"
           >
             About
           </NavLink>

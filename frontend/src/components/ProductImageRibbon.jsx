@@ -13,7 +13,7 @@ const ProductImageRibbon = ({ text}) => {
         "
       />
       <div className="relative bg-red-700 text-white text-sm font-semibold px-5 py-2 shadow-lg ribbon-triangle-in-left">
-        Only {text} Items left
+        Only {text} Unit{text !== 1 ? "s": ""} left
       </div>
 
       {/* Ribbon tail (outside clip-path) */}

@@ -4,6 +4,7 @@ import ProductItem from "../components/ProductItem";
 import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
 import ProductItemSkeleton from "../components/ProductItemSkeleton";
+import { useRef } from "react";
 
 const PremiumCollections = () => {
   const {
@@ -21,6 +22,7 @@ const PremiumCollections = () => {
   const [sortType, setSortType] = useState("relevent");
   const [isOutofstock, setIsOutofStock] = useState(false);
   const [uiLoading, setUiLoading] = useState(true);
+  const prevMaterial = useRef(material);
 
   // price slider / input state
   const [priceMinLimit, setPriceMinLimit] = useState(0);
@@ -53,21 +55,20 @@ const PremiumCollections = () => {
   }, []);
 
   useEffect(() => {
-  if (!premiumCollection || premiumCollection.length === 0) {
+    if (!premiumCollection || premiumCollection.length === 0) {
+      setUiLoading(true);
+    } else {
+      setUiLoading(false);
+    }
+  }, [premiumCollection]);
+
+  useEffect(() => {
     setUiLoading(true);
-    return;
-  }
-
-  // simulate async-ready UI (prevents flicker)
-  setUiLoading(true);
-
-  const timer = setTimeout(() => {
-    setUiLoading(false);
-  }, 300); // 300ms is perfect UX
-
-  return () => clearTimeout(timer);
-}, [premiumCollection, material]);
-
+    const t = setTimeout(() => setUiLoading(false), 300);
+    prevMaterial.current = material;
+    return () => clearTimeout(t);
+  }, [material, isBestSellerOnly]);
+  
 
   // base products for current category
   const getBaseProducts = useCallback(() => {
@@ -248,8 +249,8 @@ const PremiumCollections = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType]);
 
-  const props = getBaseProducts()
-  const OutOff = props.filter((item) => item.quantity === 0).length
+  const props = getBaseProducts();
+  const OutOff = props.filter((item) => item.quantity === 0).length;
 
   return (
     <div
@@ -410,15 +411,17 @@ const PremiumCollections = () => {
                 />
                 Best Sellers
               </p>
-              {OutOff > 0 && (<p className="flex gap-2">
-                <input
-                  className="w-3"
-                  type="checkbox"
-                  checked={isOutofstock}
-                  onChange={(e) => setIsOutofStock(e.target.checked)}
-                />
-                Include Out of Stock ({OutOff})
-              </p>)}
+              {OutOff > 0 && (
+                <p className="flex gap-2">
+                  <input
+                    className="w-3"
+                    type="checkbox"
+                    checked={isOutofstock}
+                    onChange={(e) => setIsOutofStock(e.target.checked)}
+                  />
+                  Include Out of Stock ({OutOff})
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -441,7 +444,6 @@ const PremiumCollections = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
             {uiLoading ? (
-              
               Array.from({ length: 8 }).map((_, index) => (
                 <ProductItemSkeleton key={index} />
               ))

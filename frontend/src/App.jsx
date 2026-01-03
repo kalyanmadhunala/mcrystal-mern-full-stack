@@ -24,6 +24,7 @@ import { ShopContext } from "./context/ShopContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Verify from "./pages/Verify";
 import ForgotPassword from "./pages/ForgotPassword";
+import Wishlist from "./pages/Wishlist";
 
 
 
@@ -41,6 +42,7 @@ const App = () => {
         <Route path="/marbleware/:subcategory?" element={<Marbleware />} />
         <Route path="/ceramicware/:subcategory?" element={<Ceramicware />} />
         <Route path="/premium-collections" element={<PremiumCollections />} />
+        <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/collections" element={<Collections />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

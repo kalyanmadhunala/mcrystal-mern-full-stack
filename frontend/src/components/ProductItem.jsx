@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import RibbonBadge from "./RibbonBadge";
+import { assets } from "../assets/assets";
+import { Link } from "react-router-dom";
 
 const ProductItem = ({
   id,
@@ -11,13 +13,13 @@ const ProductItem = ({
   quantity,
   textColor = "text-gray-600",
 }) => {
-  const { currency } = useContext(ShopContext);
-  
+  const { currency, addToWishlist, wishlist, navigate } = useContext(ShopContext);
+
   const offerPercent = (((price - sellprice) / price) * 100).toFixed();
 
   return (
-    <a
-      href={`/products/${id}`}
+    <Link
+      to={`/products/${id}`}
       className={`${textColor} cursor-pointer relative block`}
     >
       {/* Ribbon */}
@@ -32,6 +34,30 @@ const ProductItem = ({
           src={images[0]}
           alt={name}
         />
+
+        {/* Wishlist icon */}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation(); 
+            addToWishlist(id);
+          }}
+          className="absolute top-2 right-2 bg-white rounded-full p-2 flex justify-center items-center z-20 cursor-pointer"
+        >
+          {wishlist[id] ? (
+            <img
+              src={assets.wishlist_full_icon}
+              alt="wishlist_full_icon"
+              className="w-5"
+            />
+          ) : (
+            <img
+              src={assets.wishlist_line_icon}
+              alt="wishlist_line_icon"
+              className="w-5"
+            />
+          )}
+        </button>
 
         {quantity === 0 && (
           <div className="absolute inset-0 bg-primary/70 z-10 flex justify-center items-center">
@@ -51,12 +77,16 @@ const ProductItem = ({
           {sellprice}
         </p>
 
-        <p className="text-[8px] font-medium text-gray-400">
-          M.R.P <span className="line-through">{currency}{price}</span>
+        <p className="text-[8px] md:text-xs font-medium text-gray-400">
+          M.R.P{" "}
+          <span className="line-through">
+            {currency}
+            {price}
+          </span>
         </p>
 
         <p
-          className={`text-[8px] ${
+          className={`text-[8px] md:text-xs ${
             offerPercent >= 75
               ? "bg-red-600 rounded-sm shadow-md text-white p-1"
               : "text-gray-400"
@@ -67,7 +97,7 @@ const ProductItem = ({
             : `(${offerPercent}% Off)`}
         </p>
       </div>
-    </a>
+    </Link>
   );
 };
 

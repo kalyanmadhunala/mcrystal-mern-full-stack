@@ -9,6 +9,7 @@ import googleRouter from "./routes/googleRoute.js";
 import productRouter from "./routes/productRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+import wishlistRouter from "./routes/wishlistRouter.js";
 
 const allowedOrigins = [
   "http://localhost:5173",
@@ -46,6 +47,7 @@ app.use("/account", googleRouter);
 app.use("/product", productRouter);
 app.use("/cart", cartRouter);
 app.use("/order", orderRouter);
+app.use("/wishlist", wishlistRouter);
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
