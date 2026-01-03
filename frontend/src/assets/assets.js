@@ -12,6 +12,7 @@ import share_icon from "./icons/share_icon.png";
 import link_icon from "./icons/link_icon.png";
 import download_icon from "./icons/download_icon.png";
 import empty_cart from "./icons/empty_cart.png";
+import package_icon from "./icons/package_icon.png";
 import empty_box from "./icons/empty_box.png";
 import cart_icon_white from "./icons/cart_icon_white.png";
 import cross_icon from "./icons/cross_icon.png";
@@ -53,6 +54,7 @@ export const assets = {
   download_icon,
   link_icon,
   empty_cart,
+  package_icon,
   empty_box,
   cross_icon,
   frame,

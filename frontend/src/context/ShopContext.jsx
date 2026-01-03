@@ -427,6 +427,7 @@ const ShopContextProvider = (props) => {
       authLoading,
       wishlist,
       addToWishlist,
+      setWishlist,
     }),
     [
       marbleProducts,

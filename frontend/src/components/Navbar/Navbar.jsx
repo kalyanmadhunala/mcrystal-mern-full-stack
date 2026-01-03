@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 const Navbar = () => {
   const {
     setShowSearch,
+    setWishlist,
     getCartCount,
     loggedin,
     setLogin,
@@ -108,6 +109,7 @@ const Navbar = () => {
     if (data.success) {
       setLogin(false);
       setUserData(false);
+      setWishlist({})
       toast.success(data.msg);
     } else {
       console.log(data.msg);
