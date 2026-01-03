@@ -4,6 +4,7 @@ import ProductItem from "../components/ProductItem";
 import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
 import { useParams } from "react-router-dom";
+import ProductItemSkeleton from "../components/ProductItemSkeleton";
 
 const Ceramicware = () => {
   const { subcategory } = useParams();
@@ -458,7 +459,7 @@ const Ceramicware = () => {
             {uiLoading ? (
               
               Array.from({ length: 8 }).map((_, index) => (
-                <ProductItem key={index} loading />
+                <ProductItemSkeleton key={index} />
               ))
             ) : filteredProducts.length > 0 ? (
               filteredProducts.map((item, index) => (

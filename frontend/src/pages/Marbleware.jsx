@@ -4,6 +4,7 @@ import ProductItem from "../components/ProductItem";
 import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
 import { useParams } from "react-router-dom";
+import ProductItemSkeleton from "../components/ProductItemSkeleton";
 
 const Marbleware = () => {
   const { subcategory } = useParams();
@@ -457,7 +458,7 @@ const Marbleware = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
             {uiLoading ? (
               Array.from({ length: 8 }).map((_, index) => (
-                <ProductItem key={index} loading />
+                <ProductItemSkeleton key={index} />
               ))
             ) : filteredProducts.length > 0 ? (
               filteredProducts.map((item, index) => (

@@ -1,17 +1,18 @@
 const ProductImageRibbon = ({ text}) => {
   return (
-    <div className="absolute top-4 -right-4 z-20 overflow-visible">
+    <div className="absolute top-4 -left-4 z-20 overflow-visible">
       {/* Ribbon body */}
       <span
         className="
-          absolute -right-2 top-7
+          absolute left-0 top-5
           w-0 h-0
-          border-r-[16px] border-r-transparent
-          border-l-[16px] border-l-transparent
-          border-t-[16px] border-t-red-700 -rotate-90
+          border-t-[18px] border-t-transparent
+          border-b-[16px] border-b-transparent
+          border-l-[16px] border-r-red-700
+          rotate-180
         "
       />
-      <div className="relative bg-red-700 text-white text-sm font-semibold px-5 py-2 shadow-lg ribbon-triangle-in">
+      <div className="relative bg-red-700 text-white text-sm font-semibold px-5 py-2 shadow-lg ribbon-triangle-in-left">
         Only {text} Items left
       </div>
 

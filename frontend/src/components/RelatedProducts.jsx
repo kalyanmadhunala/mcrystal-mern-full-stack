@@ -36,7 +36,7 @@ const RelatedProducts = ({ id, material, category, subcategory }) => {
 
   return (
     <div className="mt-16">
-      <div className="text-center mb-6">
+      <div className="text-center text-3xl mb-6">
         <Title text1="RELATED " text2="PRODUCTS" />
       </div>
 

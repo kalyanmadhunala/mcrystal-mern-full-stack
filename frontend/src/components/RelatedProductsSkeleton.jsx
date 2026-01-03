@@ -1,6 +1,6 @@
 const RelatedProductsSkeleton = () => {
   return (
-    <div className="mt-16 px-4 sm:px-[3vw] md:px-[5vw] lg:px-[7vw]">
+    <div className="mt-16">
       <div className="h-8 w-64 shimmer rounded mb-6 mx-auto" />
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
