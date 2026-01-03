@@ -46,17 +46,17 @@ const ProductItem = ({
       <p className="pt-3 pb-1 text-sm">{name}</p>
 
       <div className="flex items-center gap-2">
-        <p className="text-md font-medium">
+        <p className="text-sm md:text-md font-medium">
           {currency}
           {sellprice}
         </p>
 
-        <p className="text-xs font-medium text-gray-400">
+        <p className="text-[8px] font-medium text-gray-400">
           M.R.P <span className="line-through">{currency}{price}</span>
         </p>
 
         <p
-          className={`text-xs ${
+          className={`text-[8px] ${
             offerPercent >= 75
               ? "bg-red-600 rounded-sm shadow-md text-white p-1"
               : "text-gray-400"
