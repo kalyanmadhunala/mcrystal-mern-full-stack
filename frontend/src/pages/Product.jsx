@@ -29,7 +29,9 @@ const Product = () => {
     });
   };
 
-  const productUrl = window.location.href;
+  const productUrl = `${import.meta.env.VITE_BACKEND_URL}/product/${
+    productData._id
+  }`;
 
   const generateShortLink = async (longUrl) => {
     try {
@@ -44,16 +46,14 @@ const Product = () => {
 
   /* WhatsApp */
   const handleWhatsAppShare = async () => {
-    const shortUrl = await generateShortLink(productUrl);
-    const text = `Check out this product:\n${productData.name}\n${shortUrl}`;
+    const text = `Check out this product:\n${productData.name}\n${productUrl}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
     setShowShare(false);
   };
 
   /* Copy Link */
   const handleCopyLink = async () => {
-    const shortUrl = await generateShortLink(productUrl);
-    await navigator.clipboard.writeText(shortUrl);
+    await navigator.clipboard.writeText(productUrl);
     toast.success("Link copied!");
     setShowShare(false);
   };
@@ -64,14 +64,14 @@ const Product = () => {
         await navigator.share({
           title: productData.name,
           text: productData.tagline,
-          url: productUrl,
+          url: productUrl, 
         });
         setShowShare(false);
-      } catch (err) {
+      } catch {
         toast.error("Share cancelled");
       }
     } else {
-      setShowShare(true); // fallback to custom popup
+      setShowShare(true);
     }
   };
 

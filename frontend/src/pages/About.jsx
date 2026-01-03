@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../components/Title";
 import { assets } from "../assets/assets";
 import NewsletterBox from "../components/NewsletterBox";
 
 const About = () => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   useEffect(() => {
     const title = "About";
     document.title = title + " | M Crystal";
@@ -16,11 +18,22 @@ const About = () => {
         </div>
 
         <div className="mt-10 flex flex-col md:flex-row gap-16">
-          <img
-            className="w-full md:max-w-[450px]"
-            src="https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto:450,q_auto/about_us.png"
-            alt="about"
-          />
+          <div className="relative w-full md:max-w-[450px] overflow-hidden rounded-lg">
+            {/* Shimmer Overlay */}
+            {!imageLoaded && (
+              <div className="absolute inset-0 bg-gray-200 animate-shimmerCard z-10" />
+            )}
+
+            <img
+              className={`w-full transition-opacity duration-500 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              src="https://res.cloudinary.com/dbanrkx7w/image/upload/w_auto:450,q_auto/about_us.png"
+              alt="about"
+              onLoad={() => setImageLoaded(true)}
+            />
+          </div>
+
           <div className="flex flex-col justify-center gap-6 md:w-2/4 text-gray-600">
             <p>
               At M Crystal, we believe that every home deserves décor that tells

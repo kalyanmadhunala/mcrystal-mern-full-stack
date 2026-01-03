@@ -113,5 +113,49 @@ const singleProduct = async (req, res) => {
     }
 }
 
+//function for share product info
+const shareProduct = async (req, res) => {
+    try {
+    const product = await productModel.findById(req.params.productId);
 
-export {addProduct, listProducts, removeProduct, singleProduct}
+    if (!product) {
+      return res.json({success:false, msg:"Product not found"});
+    }
+
+    const image = product.images[0];
+
+    res.set("Content-Type", "text/html");
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <title>${product.name} | M Crystal</title>
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="${product.name}" />
+        <meta property="og:description" content="${product.tagline}" />
+        <meta property="og:image" content="${image}" />
+        <meta property="og:url" content="https://mcrystalz.web.app/products/${product._id}" />
+        <meta property="og:type" content="product" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="${product.name}" />
+        <meta name="twitter:description" content="${product.tagline}" />
+        <meta name="twitter:image" content="${image}" />
+
+        <!-- Redirect users to React app -->
+        <meta http-equiv="refresh" content="0;url=https://mcrystalz.web.app/products/${product._id}" />
+      </head>
+      <body></body>
+      </html>
+    `);
+  } catch (err) {
+    res.json({success:false, msg:err.message});
+  }
+}
+
+
+
+export {addProduct, listProducts, removeProduct, singleProduct, shareProduct}
