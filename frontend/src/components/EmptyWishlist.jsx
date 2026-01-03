@@ -6,7 +6,7 @@ const EmptyWishlist = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center">
+    <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 mt-30 text-center">
       {/* Cart icon + pulse */}
       <div className="relative mb-6">
         <div className="absolute inset-0 rounded-full bg-primary/30 animate-pulse-soft"></div>
@@ -14,7 +14,7 @@ const EmptyWishlist = () => {
         <img
           src={assets.package_icon}
           alt="Empty cart"
-          className="relative w-24 sm:w-28 md:w-42"
+          className="relative w-18 sm:w-28 md:w-32"
         />
       </div>
 

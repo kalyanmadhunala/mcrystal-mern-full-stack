@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart } = useContext(ShopContext);
+  const { products, currency, addToCart, wishlist, addToWishlist } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
   const [showShare, setShowShare] = useState(false);
@@ -68,7 +68,7 @@ const Product = () => {
         });
         setShowShare(false);
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     } else {
       setShowShare(true); // fallback to custom popup
@@ -177,11 +177,40 @@ const Product = () => {
                     </p>
                   </div>
                 )}
+                {/* Wishlist icon */}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    addToWishlist(productData._id);
+                  }}
+                  className="absolute top-18 right-5 rounded-full bg-white p-2 flex justify-center items-center z-20 cursor-pointer"
+                >
+                  {wishlist[productData._id] ? (
+                    <img
+                      src={assets.wishlist_full_icon}
+                      alt="wishlist_full_icon"
+                      className="w-6"
+                    />
+                  ) : (
+                    <img
+                      src={assets.wishlist_line_icon}
+                      alt="wishlist_line_icon"
+                      className="w-6"
+                    />
+                  )}
+                </button>
               </div>
             </div>
             {/* --------------------------- Product Info --------------------------- */}
             <div className="flex-1">
-              <h2 className="font-medium text-2xl mt-2">{productData.name}</h2>
+              <div className="relative">
+                <h2 className="font-medium text-2xl mt-2">
+                  {productData.name}
+                </h2>
+                
+              </div>
+
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-start gap-3 mt-3">
                 <div className="flex gap-1 h-5">
                   <img src={assets.star_full_icon} alt="" className="w-5" />
